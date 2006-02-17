@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Symantec-pcAnywhere-Util-CHF.t
+lib/Symantec/PCAnywhere/Profile/CHF.pm

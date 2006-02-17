@@ -1,0 +1,38 @@
+Symantec-PCAnywhere-Profile-CHF version 0.01
+=========================================
+
+This module provides an interface for operations on Remote Host
+Connection Profile data files (CHF files) for Symantec's pcAnywhere
+product. This module is based on 'pcainfo' from Stephen J. Friedl. His work,
+which is in the public domain, has been modified to add encoding
+capabilities to allow creating CHFs. See the module pod for more information.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  Symantec::PCAnywhere::Profile
+  Compress::Zlib
+  MIME::Base64
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2006 by Darren Kulp
+
+Contains code placed in the public domain 2002 by Stephen Friedl
+
+"Symantec" and "pcAnywhere" are trademarks of Symantec Corp.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.4 or,
+at your option, any later version of Perl 5 you may have available.
+
