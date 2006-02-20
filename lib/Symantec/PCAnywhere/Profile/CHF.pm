@@ -137,13 +137,13 @@ profiles
 	# Load CHF data directly
 	my $chf = new Symantec::PCAnywhere::Profile::CHF(data => $data);
 	
-	my %results = $chf->get_attrs(
+	my $results = $chf->get_attrs(
 		Location,
 		Password,
 		Hostname,
 		DataPort
 	);
-	while (my ($attr, $value) = each (%results)) {
+	while (my ($attr, $value) = each (%$results)) {
 		print "$attr\t= $value\n";
 	}
 	
@@ -229,23 +229,20 @@ refactor code to pass references to lists instead of lists.
 
 =head1 BUGS / CAVEATS
 
-Bseides the items in the TO DO section:
-
-A path exactly 3308 characters long passed to the constructor will cause the
-attempted parsing of the path as CHF data. To work around this problem, call
-the constructor with no arguments and then call the method "load_from_file"
-with the path you wish to open.
+They're in there somewhere. Let me know what you find.
 
 =head1 AUTHOR
 
-Darren Kulp, E<lt>kulp@thekulp.comE<gt>;
-Stephen J. Friedl, E<lt>steve@unixwiz.netE<gt>
+Darren Kulp, E<lt>kulp@thekulp.comE<gt>, based on code from
+Stephen J. Friedl, (http://unixwiz.net/)
 
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2006 by Darren Kulp
 
 Contains code placed in the public domain 2002 by Stephen Friedl
+
+"Symantec" and "pcAnywhere" are trademarks of Symantec Corp.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.4 or,

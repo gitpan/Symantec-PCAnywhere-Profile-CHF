@@ -3,31 +3,35 @@
 
 #########################
 
-use Test::More tests => 1;
+use strict;
+use warnings;
+use Test::More tests => 2;
+#
+# Test 1 ensures we have the module to begin with
+#
 BEGIN { use_ok('Symantec::PCAnywhere::Profile::CHF') };
 
-#########################
+###
+# Main tests start here
+###
 
-my $chf = new Symantec::PCAnywhere::Profile::CHF;
-$chf->set_attrs(
-	PhoneNumber	=> 1234,
-	AreaCode	=> 715,
-	IPAddress	=> '10.10.128.99',
-	ControlPort	=> '5900'
+# TODO: Test more/all fields
+my %pairs = (
+	AreaCode	=> 800,
+	ControlPort	=> 9989,
+	PhoneNumber	=> 5551234,
+	IPAddress	=> '127.0.0.9',
 );
-print $chf->encode;
+my @chf;
+$chf[0] = new Symantec::PCAnywhere::Profile::CHF;
+$chf[0]->set_attrs(%pairs);
+my $data = $chf[0]->encode;
 
-my $chf = new Symantec::PCAnywhere::Profile::CHF(shift);
-use Data::Dumper;
-my %results = $chf->get_attrs(
-	ConnectionName,
-	PhoneNumber,
-	AreaCode,
-	IPAddress,
-	ControlPort
-);
-while (my ($attr, $value) = each (%results)) {
-	print "$attr\t= $value\n";
-}
-my $chf = new pcAnywhere::Util::CHF('test.chf');
-print "$_\n" for sort $chf->get_fields;
+$chf[1] = new Symantec::PCAnywhere::Profile::CHF(-data => $data);
+my $results = $chf[1]->get_attrs(keys %pairs);
+
+#
+# Test 2 checks whether parsing a fresh file gives sane output
+#
+is_deeply($results, \%pairs, 'Parse new file');
+
