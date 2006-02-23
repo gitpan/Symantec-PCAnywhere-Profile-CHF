@@ -5,7 +5,8 @@
 
 use strict;
 use warnings;
-use Test::More tests => 2;
+use Digest::MD5;
+use Test::More tests => 3;
 #
 # Test 1 ensures we have the module to begin with
 #
@@ -22,6 +23,10 @@ my %pairs = (
 	PhoneNumber	=> 5551234,
 	IPAddress	=> '127.0.0.9',
 );
+my @known_sums = (
+	'd6dd5cf070c554c465ec819a1e411d27'
+);
+
 my @chf;
 $chf[0] = new Symantec::PCAnywhere::Profile::CHF;
 $chf[0]->set_attrs(%pairs);
@@ -35,3 +40,12 @@ my $results = $chf[1]->get_attrs(keys %pairs);
 #
 is_deeply($results, \%pairs, 'Parse new file');
 
+#
+# Test 3 tests output to match known checksums
+#
+my @sums;
+my $md5 = new Digest::MD5;
+$chf[2] = new Symantec::PCAnywhere::Profile::CHF;
+$md5->add($chf[2]->encode);
+$sums[0] = $md5->hexdigest;
+is_deeply(\@sums, \@known_sums, "Correct checksums on default output");

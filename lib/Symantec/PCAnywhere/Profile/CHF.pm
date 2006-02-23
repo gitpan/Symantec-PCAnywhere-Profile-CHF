@@ -25,7 +25,8 @@ package Symantec::PCAnywhere::Profile::CHF;
 
 use strict;
 use warnings;
-our $VERSION = '0.01';
+
+our $VERSION = '0.03';
 
 use base qw(Symantec::PCAnywhere::Profile);
 use Compress::Zlib;
